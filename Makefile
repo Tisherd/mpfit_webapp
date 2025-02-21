@@ -16,7 +16,7 @@ COMPOSER=docker exec ${PHP_CONTAINER} composer
 docker-init-env:
 	bash ./docker/docker-init-environments.sh
 
-docker-build:
+docker-build: docker-init-env
 	${DOCKER_COMPOSE} build
 
 docker-up:
@@ -27,8 +27,11 @@ docker-down:
 
 docker-restart: docker-down docker-up
 
-docker-rebuild: docker-down docker-init-env docker-build docker-up composer-install
+docker-rebuild: docker-down docker-build docker-up
 
 # Composer
 composer-install:
 	${COMPOSER} install --no-scripts --no-progress --prefer-dist
+
+# Project
+project-launch: docker-rebuild composer-install
