@@ -62,8 +62,10 @@ services:
 
 networks:
   app-network:
+    name: ${APP_NAME}_app-network
     driver: bridge
 
 volumes:
   mysql_data:
+    name: ${APP_NAME}_mysql_data
     driver: local
