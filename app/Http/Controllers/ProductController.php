@@ -28,8 +28,8 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request): RedirectResponse
     {
-        Product::create($request->validated());
-        return redirect()->route('products.index');
+        $product = Product::create($request->validated());
+        return redirect()->route('products.show', $product);
     }
 
     public function show(Product $product): Response
@@ -50,7 +50,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product): RedirectResponse
     {
         $product->update($request->validated());
-        return redirect()->route('products.index');
+        return redirect()->route('products.show', $product);
     }
 
     public function destroy(Product $product): RedirectResponse
