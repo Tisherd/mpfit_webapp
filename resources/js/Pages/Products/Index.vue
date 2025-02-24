@@ -9,7 +9,7 @@ defineProps({
 const headers = [
     { key: "name", label: "Название" },
     { key: "category.name", label: "Категория" },
-    { key: "price", label: "Цена" },
+    { funcKey: (order) => order.price + ' ₽' , label: "Цена" },
 ];
 
 const baseRoute = "/products";
