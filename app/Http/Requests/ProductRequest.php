@@ -12,7 +12,7 @@ class ProductRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'category_id' => ['required', 'exists:categories,id'],
             'description' => ['nullable', 'string'],
-            'price' => ['required', 'integer', 'min:0'],
+            'price' => ['required', 'numeric', 'min:0', 'regex:/^\d{1,8}(\.\d{1,2})?$/'],
         ];
     }
 }
