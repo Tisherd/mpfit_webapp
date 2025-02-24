@@ -12,7 +12,7 @@ COMPOSER=docker exec ${PHP_CONTAINER} composer
     docker-clean docker-volume-prune \
     composer-install composer-optimize \
     php-shell \
-    artisan-migrate-refresh
+    artisan-migrate-refresh artisan-key-generate
 
 # Docker
 # Copying the necessary environment variables to docker/.env
@@ -53,5 +53,8 @@ php-shell:
 artisan-migrate-refresh:
 	docker exec ${PHP_CONTAINER} php artisan migrate:refresh --seed
 
+artisan-key-generate:
+	docker exec ${PHP_CONTAINER} php artisan key:generate
+
 # Project
-project-launch: docker-rebuild composer-install
+project-launch: docker-rebuild composer-install artisan-migrate-refresh
