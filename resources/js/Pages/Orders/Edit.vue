@@ -17,7 +17,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.put(`/orders/${props.product.id}`);
+    form.put(`/orders/${props.order.id}`);
 };
 </script>
 
