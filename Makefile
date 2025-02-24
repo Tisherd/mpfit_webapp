@@ -12,7 +12,8 @@ COMPOSER=docker exec ${PHP_CONTAINER} composer
     docker-clean docker-volume-prune \
     composer-install composer-optimize \
     php-shell \
-    artisan-migrate-refresh artisan-key-generate
+    artisan-migrate-refresh artisan-key-generate \
+    wait-for-mysql
 
 # Docker
 # Copying the necessary environment variables to docker/.env
@@ -57,4 +58,12 @@ artisan-key-generate:
 	docker exec ${PHP_CONTAINER} php artisan key:generate
 
 # Project
-project-launch: docker-rebuild composer-install artisan-key-generate artisan-migrate-refresh
+project-launch: docker-rebuild composer-install wait-for-mysql artisan-key-generate artisan-migrate-refresh
+
+wait-for-mysql:
+	@echo "Waiting for MySQL to be ready..."
+	@until docker exec ${APP_NAME}_mysql mysqladmin ping -h 127.0.0.1 -u${MYSQL_USER} -p${MYSQL_PASSWORD} --silent; do \
+		echo "Waiting for MySQL..."; \
+		sleep 1; \
+	done
+	@echo "MySQL is ready!"
