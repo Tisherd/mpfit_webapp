@@ -43,7 +43,7 @@ const submit = () => {
                 </div>
                 <div>
                     <label class="block font-medium text-gray-700">Количество</label>
-                    <input v-model="form.product_quantity" required type="number" class="border border-gray-300 rounded-lg w-full p-2 mt-1 focus:ring-2 focus:ring-blue-400" />
+                    <input v-model="form.product_quantity" required type="number" step="1" class="border border-gray-300 rounded-lg w-full p-2 mt-1 focus:ring-2 focus:ring-blue-400" />
                     <InputError class="mt-2" :message="form.errors.product_quantity" />
                 </div>
                 <div>
