@@ -1,11 +1,17 @@
 <script setup>
 import { defineProps } from 'vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 
 defineProps({
     product: Object
 });
+
+const destroy = (id) => {
+    if (confirm("Вы уверены, что хотите удалить этот товар?")) {
+        router.delete(`/products/${id}`);
+    }
+};
 </script>
 
 <template>
@@ -34,10 +40,16 @@ defineProps({
                 <Link href="/products" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg shadow">
                     Назад
                 </Link>
-                <Link :href="`/products/${product.id}/edit`"
-                      class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow">
-                    Редактировать
-                </Link>
+                <div class="flex space-x-2">
+                    <Link :href="`/products/${product.id}/edit`"
+                          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow">
+                        Редактировать
+                    </Link>
+                    <button @click.stop="destroy(product.id)"
+                            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow">
+                        Удалить
+                    </button>
+                </div>
             </div>
         </div>
     </MainLayout>
