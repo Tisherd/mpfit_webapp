@@ -9,6 +9,14 @@ class OrderRequest extends FormRequest
 {
     public function rules(): array
     {
+        $routeName = $this->route()->getName();
+
+        if ($routeName === 'orders.updateStatus') {
+            return [
+                'status' => ['required', 'string', Rule::in(['new', 'completed'])],
+            ];
+        }
+
         return [
             'customer_name' => ['required', 'string', 'max:255'],
             'product_id' => ['required', 'exists:products,id'],

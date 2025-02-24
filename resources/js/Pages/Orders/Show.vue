@@ -12,12 +12,16 @@ const destroy = (id) => {
         router.delete(`/orders/${id}`);
     }
 };
+
+const updateStatus = (id) => {
+    router.patch(`/orders/${id}/status`, { status: 'completed' });
+};
 </script>
 
 <template>
     <MainLayout>
         <div class="bg-white shadow-lg rounded-lg p-6 max-w-lg mx-auto">
-            <h1 class="text-2xl font-semibold mb-4">Заказ {{ order.customer_name }}</h1>
+            <h1 class="text-2xl font-semibold mb-4">Заказ от {{ order.customer_name }}</h1>
 
             <div class="space-y-4">
                 <div>
@@ -25,19 +29,37 @@ const destroy = (id) => {
                     <span class="ml-2 text-gray-900">{{ order.product.name }}</span>
                 </div>
 
-                <div>
-                    <span class="font-medium text-gray-700">Комментарий покупателя:</span>
-                    <p class="ml-2 text-gray-900">{{ order.comment || 'Нет комментария' }}</p>
+                <div class="flex justify-between items-center">
+                    <div class="space-y-4">
+                        <span class="font-medium text-gray-700">Статус заказа:</span>
+                        <span class="ml-2 text-gray-900">{{ order.status }}</span>
+                    </div>
+                    <button
+                        v-if="order.status === 'new'"
+                        @click="updateStatus(order.id)"
+                        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow">
+                        Завершить заказ
+                    </button>
                 </div>
 
                 <div>
-                    <span class="font-medium text-gray-700">Статус заказа:</span>
-                    <p class="ml-2 text-gray-900">{{ order.status }}</p>
+                    <span class="font-medium text-gray-700">Цена за ед.:</span>
+                    <span class="ml-2 text-gray-900">{{ order.product.price }} ₽</span>
+                </div>
+
+                <div>
+                    <span class="font-medium text-gray-700">Количество:</span>
+                    <span class="ml-2 text-gray-900">{{ order.product_quantity }}</span>
                 </div>
 
                 <div>
                     <span class="font-medium text-gray-700">Итоговая цена:</span>
-                    <span class="ml-2 text-gray-900">{{ (order.product_quantity * order.product_id.price).toFixed(2) }} ₽</span>
+                    <span class="ml-2 text-gray-900">{{ (order.product_quantity * order.product.price).toFixed(2) }} ₽</span>
+                </div>
+
+                <div>
+                    <span class="font-medium text-gray-700">Комментарий покупателя:</span>
+                    <p class="ml-2 text-gray-900">{{ order.comment || 'Нет комментария' }}</p>
                 </div>
             </div>
 

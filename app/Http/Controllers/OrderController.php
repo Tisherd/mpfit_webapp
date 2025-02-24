@@ -58,4 +58,11 @@ class OrderController extends Controller
         $order->delete();
         return redirect()->route('orders.index');
     }
+
+    public function updateStatus(OrderRequest $request, Order $order)
+    {
+        $order->update($request->validated());
+
+        return redirect()->route('orders.show', $order)->with('success', 'Статус заказа обновлён.');
+    }
 }
