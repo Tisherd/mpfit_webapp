@@ -19,6 +19,7 @@ return new class extends Migration
             $table->id();
             $table->string('customer_name');
             $table->foreignIdFor(Product::class);
+            $table->unsignedInteger('product_quantity');
             $table->enum('status', ['new', 'completed'])->default('new')->index();
             $table->text('comment')->nullable();
             $table->timestamps();
