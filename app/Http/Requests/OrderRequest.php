@@ -9,11 +9,13 @@ class OrderRequest extends FormRequest
 {
     public function rules(): array
     {
-        $routeName = $this->route()->getName();
-
-        if ($routeName === 'orders.updateStatus') {
+        if ($this->isMethod('patch')) {
             return [
-                'status' => ['required', 'string', Rule::in(['new', 'completed'])],
+                'customer_name' => ['nullable', 'string', 'max:255'],
+                'product_id' => ['nullable', 'exists:products,id'],
+                'product_quantity' => ['nullable', 'integer', 'min:1'],
+                'status' => ['nullable', 'string', Rule::in(['new', 'completed'])],
+                'description' => ['nullable', 'string'],
             ];
         }
 

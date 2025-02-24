@@ -28,8 +28,8 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request): RedirectResponse
     {
-        Order::create($request->validated());
-        return redirect()->route('orders.index');
+        $order = Order::create($request->validated());
+        return redirect()->route('orders.show', $order);
     }
 
     public function show(Order $order): Response
@@ -50,19 +50,12 @@ class OrderController extends Controller
     public function update(OrderRequest $request, Order $order): RedirectResponse
     {
         $order->update($request->validated());
-        return redirect()->route('orders.index');
+        return redirect()->route('orders.show', $order);
     }
 
     public function destroy(Order $order): RedirectResponse
     {
         $order->delete();
         return redirect()->route('orders.index');
-    }
-
-    public function updateStatus(OrderRequest $request, Order $order)
-    {
-        $order->update($request->validated());
-
-        return redirect()->route('orders.show', $order)->with('success', 'Статус заказа обновлён.');
     }
 }

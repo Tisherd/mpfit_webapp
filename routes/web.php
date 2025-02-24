@@ -13,4 +13,3 @@ Route::get('/', function () {
 Route::resource('products', ProductController::class)->names('products');
 
 Route::resource('orders', OrderController::class)->names('orders');
-Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');

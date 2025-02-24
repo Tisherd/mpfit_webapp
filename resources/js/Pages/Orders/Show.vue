@@ -14,7 +14,7 @@ const destroy = (id) => {
 };
 
 const updateStatus = (id) => {
-    router.patch(`/orders/${id}/status`, { status: 'completed' });
+    router.patch(`/orders/${id}`, { status: 'completed' });
 };
 </script>
 
