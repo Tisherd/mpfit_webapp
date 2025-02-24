@@ -10,6 +10,9 @@ class Order extends Model
 {
     use HasFactory;
 
+    const NEW = 'new';
+    const COMPLETED = 'completed';
+
     protected $fillable = [
         'customer_name',
         'product_id',
