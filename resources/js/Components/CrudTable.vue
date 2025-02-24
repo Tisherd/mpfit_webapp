@@ -51,7 +51,12 @@ const destroy = (baseRoute, id) => {
                             @click="router.visit(baseRoute + '/' + item.id)">
                             <td v-for="header in headers" :key="header.key"
                                 class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ getNestedValue(item, header.key) }}
+                                <template v-if="header.funcKey">
+                                    {{ header.funcKey(item) }}
+                                  </template>
+                                  <template v-else>
+                                    {{ getNestedValue(item, header.key) }}
+                                  </template>
                             </td>
                             <td
                                 class="px-4 py-4 whitespace-nowrap text-sm font-medium flex justify-end items-center space-x-2"

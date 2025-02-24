@@ -7,9 +7,11 @@ defineProps({
 });
 
 const headers = [
+    { key: "id", label: "Номера заказа (ID)" },
+    { funcKey: (order) => new Date(order.created_at).toLocaleString(), label: "Дата создания" },
     { key: "customer_name", label: "ФИО покупателя" },
-    { key: "product.name", label: "Товар" },
-    { key: "status", label: "Статус" },
+    { key: "status", label: "Статуса заказа" },
+    { funcKey: (order) => (order.product_quantity * order.product.price).toFixed(2) + ' ₽' , label: "Итоговая цена" },
 ];
 
 const baseRoute = "/orders";

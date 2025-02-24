@@ -21,16 +21,26 @@ const updateStatus = (id) => {
 <template>
     <MainLayout>
         <div class="bg-white shadow-lg rounded-lg p-6 max-w-lg mx-auto">
-            <h1 class="text-2xl font-semibold mb-4">Заказ от {{ order.customer_name }}</h1>
+            <h1 class="text-2xl font-semibold mb-4">Заказ № {{ order.id }}</h1>
 
             <div class="space-y-4">
+                <div>
+                    <span class="font-medium text-gray-700">Дата создания:</span>
+                    <span class="ml-2 text-gray-900">{{ new Date(order.created_at).toLocaleString() }}</span>
+                </div>
+
+                <div>
+                    <span class="font-medium text-gray-700">Покупатель:</span>
+                    <span class="ml-2 text-gray-900">{{ order.customer_name }}</span>
+                </div>
+
                 <div>
                     <span class="font-medium text-gray-700">Товар:</span>
                     <span class="ml-2 text-gray-900">{{ order.product.name }}</span>
                 </div>
 
                 <div class="flex justify-between items-center">
-                    <div class="space-y-4">
+                    <div>
                         <span class="font-medium text-gray-700">Статус заказа:</span>
                         <span class="ml-2 text-gray-900">{{ order.status }}</span>
                     </div>
