@@ -9,6 +9,17 @@
 - MySQL (база данных)
 - Docker (контейнеризация)
 
+# Способ запуска
+### Нужны следующие инструменты:
+- make
+- docker
+
+### Инструкция по запуску проекта:
+- cp .env.example .env, т.е по-простому создайте файл .env и скопируйте содержимое из файла .env.example
+- в файле .env изменить места "<GENERATE_HERE>" на рандомный пароль
+- запустить make project-launch
+- проверить <a href="http://localhost">http://localhost</a>
+
 # Описание задачи
 
 ## <a href="https://docs.google.com/document/d/1AS9WeZz6Ak9eS5u2UtrRUGcJs1TKskcpH7faURtSaZY">Тестовое задание для программиста PHP</a>

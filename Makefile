@@ -64,6 +64,6 @@ wait-for-mysql:
 	@echo "Waiting for MySQL to be ready..."
 	@until docker exec ${APP_NAME}_mysql mysqladmin ping -h 127.0.0.1 -u${MYSQL_USER} -p${MYSQL_PASSWORD} --silent; do \
 		echo "Waiting for MySQL..."; \
-		sleep 1; \
+		sleep 2; \
 	done
 	@echo "MySQL is ready!"
