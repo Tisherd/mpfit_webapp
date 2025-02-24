@@ -57,4 +57,4 @@ artisan-key-generate:
 	docker exec ${PHP_CONTAINER} php artisan key:generate
 
 # Project
-project-launch: docker-rebuild composer-install artisan-migrate-refresh
+project-launch: docker-rebuild composer-install artisan-key-generate artisan-migrate-refresh
