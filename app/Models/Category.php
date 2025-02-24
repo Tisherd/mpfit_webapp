@@ -14,6 +14,8 @@ class Category extends Model
     const FRAGILE = 'fragile';
     const HEAVY = 'heavy';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
     ];
