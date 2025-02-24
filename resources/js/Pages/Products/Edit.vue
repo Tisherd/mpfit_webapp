@@ -1,23 +1,23 @@
 <script setup>
-import { ref, defineProps } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { defineProps } from 'vue';
+import { router, useForm } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
+import InputError from '@/Components/Base/InputError.vue';
 
 const props = defineProps({
     product: Object,
     categories: Array
 });
 
-const form = ref({
+const form = useForm({
     name: props.product.name,
     category_id: props.product.category_id,
     description: props.product.description,
-    price: (props.product.price / 100).toFixed(2)
+    price: props.product.price
 });
 
 const submit = () => {
-    form.value.price = Math.round(parseFloat(form.value.price) * 100);
-    router.put(`/products/${props.product.id}`, form.value);
+    form.put(`/products/${props.product.id}`);
 };
 </script>
 
@@ -30,6 +30,7 @@ const submit = () => {
                 <div>
                     <label class="block font-medium text-gray-700">Название</label>
                     <input v-model="form.name" required class="border border-gray-300 rounded-lg w-full p-2 mt-1 focus:ring-2 focus:ring-blue-400" />
+                    <InputError class="mt-2" :message="form.errors.name" />
                 </div>
                 <div>
                     <label class="block font-medium text-gray-700">Категория</label>
@@ -38,14 +39,17 @@ const submit = () => {
                             {{ category.name }}
                         </option>
                     </select>
+                    <InputError class="mt-2" :message="form.errors.category_id" />
                 </div>
                 <div>
                     <label class="block font-medium text-gray-700">Описание</label>
                     <textarea v-model="form.description" class="border border-gray-300 rounded-lg w-full p-2 mt-1 focus:ring-2 focus:ring-blue-400"></textarea>
+                    <InputError class="mt-2" :message="form.errors.description" />
                 </div>
                 <div>
                     <label class="block font-medium text-gray-700">Цена (₽)</label>
                     <input v-model="form.price" required type="number" step="0.01" class="border border-gray-300 rounded-lg w-full p-2 mt-1 focus:ring-2 focus:ring-blue-400" />
+                    <InputError class="mt-2" :message="form.errors.price" />
                 </div>
 
                 <div class="flex justify-between">
