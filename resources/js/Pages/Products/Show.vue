@@ -32,7 +32,7 @@ const destroy = (id) => {
 
                 <div>
                     <span class="font-medium text-gray-700">Цена:</span>
-                    <span class="ml-2 text-gray-900">{{ (product.price / 100).toFixed(2) }} ₽</span>
+                    <span class="ml-2 text-gray-900">{{ product.price }} ₽</span>
                 </div>
             </div>
 
