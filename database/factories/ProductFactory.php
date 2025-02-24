@@ -13,11 +13,17 @@ class ProductFactory extends Factory
 {
     public function definition()
     {
+        static $categories = null;
+
+        if (is_null($categories)) {
+            $categories = Category::pluck('id')->toArray();
+        }
+
         return [
             'name' => $this->faker->word(),
-            'category_id' => $this->faker->randomElement(Category::pluck('id')->toArray()),
+            'category_id' => $this->faker->randomElement($categories),
             'description' => $this->faker->optional()->text(),
-            'price' => $this->faker->randomFloat(2, 0, 99999999),
+            'price' => $this->faker->randomFloat(2, 0, 10000),
         ];
     }
 }
