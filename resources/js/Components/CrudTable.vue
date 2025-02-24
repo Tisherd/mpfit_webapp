@@ -20,7 +20,6 @@ const destroy = (baseRoute, id) => {
         router.delete(`${baseRoute}/${id}`);
     }
 };
-
 </script>
 
 <template>
@@ -28,7 +27,7 @@ const destroy = (baseRoute, id) => {
         <div class="w-full text-left my-6 ml-20">
             <h1 class="text-2xl font-bold">{{ headerTitle }}</h1>
             <Link :href="baseRoute + '/create'" class="text-indigo-600 hover:text-indigo-900 mt-2 block">
-            Добавить
+                Добавить
             </Link>
         </div>
 
@@ -41,23 +40,30 @@ const destroy = (baseRoute, id) => {
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 {{ header.label }}
                             </th>
-                            <th scope="col" class="relative px-6 py-3">
-                                <span class="sr-only">Действия</span>
+                            <th scope="col" class="px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
+                                Действия
                             </th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        <tr v-for="item in items" :key="item.id">
+                        <tr v-for="item in items" :key="item.id"
+                            class="hover:bg-gray-100 cursor-pointer"
+                            @click="router.visit(baseRoute + '/' + item.id)">
                             <td v-for="header in headers" :key="header.key"
                                 class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 {{ getNestedValue(item, header.key) }}
                             </td>
                             <td
-                                class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex justify-end items-center space-x-3">
-                                <Link class="text-indigo-600 hover:text-indigo-900" :href="baseRoute + '/edit/' + item.id">
-                                Редактировать</Link>
+                                class="px-4 py-4 whitespace-nowrap text-sm font-medium flex justify-end items-center space-x-2"
+                                @click.stop>
+                                <Link class="text-indigo-600 hover:text-indigo-900"
+                                      :href="baseRoute + '/' + item.id + '/edit'">
+                                    Редактировать
+                                </Link>
                                 <a @click="destroy(baseRoute, item.id)"
-                                    class="text-red-600 hover:text-red-900 cursor-pointer">Удалить</a>
+                                   class="text-red-600 hover:text-red-900 cursor-pointer">
+                                    Удалить
+                                </a>
                             </td>
                         </tr>
                     </tbody>
@@ -70,5 +76,4 @@ const destroy = (baseRoute, id) => {
 
         <Pagination class="mt-2" :links="links" />
     </div>
-
 </template>
