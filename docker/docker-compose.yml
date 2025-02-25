@@ -3,6 +3,7 @@ services:
     build:
       context: ./..
       dockerfile: ./docker/php/Dockerfile
+    image: ${APP_NAME}_php
     container_name: ${APP_NAME}_php
     restart: unless-stopped
     working_dir: /var/www
@@ -33,6 +34,7 @@ services:
     build:
       context: ./..
       dockerfile: ./docker/node/Dockerfile
+    image: ${APP_NAME}_node
     container_name: ${APP_NAME}_node
     restart: unless-stopped
     ports:
